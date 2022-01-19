@@ -1,0 +1,13 @@
+body {
+    background-color: white;
+  /* background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 100%; */
+}
+#img {
+  width: 25rem;
+  height: 20rem;
+}
+#card {
+  width: 25rem;
+}
