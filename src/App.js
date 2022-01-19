@@ -31,7 +31,9 @@ function App() {
         //deleteAll();
         document.getElementById('my-form').addEventListener('onsubmit', SubmitHandler, false);
     }, []);
+    useEffect(() => {
 
+    }, [favItems])
     const SubmitHandler = (event) => {
         event.preventDefault();
         if (input == "" || isNaN(input)) {
@@ -67,9 +69,18 @@ function App() {
     function deleteAll() {
         localStorage.clear();
     }
-    const deleteItem = (item) => {
+    const deleteItem = (title) => {
+        console.log("deleting");
         if (localStorage.getItem("favItems")) {
-            
+            var itemsStorage = JSON.parse(localStorage.getItem("favItems"));
+            const deletedStorage = itemsStorage.filter(i => i.title != title);
+            if (deletedStorage.length == 0) {
+                localStorage.removeItem("favItems");
+                setFavItems([]);
+            } else {
+                localStorage.setItem("favItems", JSON.stringify(deletedStorage));
+                setFavItems(deletedStorage);
+            }
         }
     }
     return (
@@ -88,7 +99,14 @@ function App() {
                     </Form.Group>
                 </Form>
                 {errMsg !== "" ? <Alert variant="danger"> {errMsg}  </Alert> : null}
-
+                <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
+                    <Tab title="Home">
+                        
+                    </Tab>
+                    <Tab title="Favourite">
+                        
+                    </Tab>
+                </Tabs>
                 {loaded ?
                     <Row id="row" xs={1} md={2} className="g-4">
                         {favView ?
@@ -103,7 +121,7 @@ function App() {
                                             explanation={obj.explanation}
                                             imageProps={{ src: `${obj.imgURL}` }}
                                             url={obj.imgURL}
-                                            storeItem={storeItem}
+                                            deleteItem={deleteItem}
                                             saved={true}
                                         />
                                     </Col>
@@ -121,6 +139,7 @@ function App() {
                                             imageProps={{ src: `${obj.url}` }}
                                             url={obj.url}
                                             storeItem={storeItem}
+                                            deleteItem={deleteItem}
                                         />
                                     </Col>
                                 ))}

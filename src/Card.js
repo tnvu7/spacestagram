@@ -5,23 +5,28 @@ import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { forwardRef, useEffect, useState } from 'react';
 
-
-function CustomToggle({ children, eventKey }) {
-    const decoratedOnClick = useAccordionButton(eventKey, ()=> {
-        //change View more/less
-    });
-  
-    return (
-        <Button id="btn" variant="link" onClick={decoratedOnClick}>
-        {children}
-        </Button>
-    );
-  }
-const setErrorImage = () => {
-    document.getElementById('img').src = "./noimg.jpeg";
-}
-
 const TheCard = forwardRef(( props, ref ) => {
+    const [flag, setFlag] = useState(false);
+    const [toogleText, setToogleText]=useState("View description");
+
+    useEffect(()=> {
+        if (!flag) setToogleText("View description");
+        else setToogleText("View less"); 
+    }, [flag])
+    function CustomToggle({ children, eventKey }) {
+        const decoratedOnClick = useAccordionButton(eventKey, ()=> {
+            setFlag(!flag);
+        });
+      
+        return (
+            <Button id="btn" variant="link" onClick={decoratedOnClick}>
+            {children}
+            </Button>
+        );
+      }
+    const setErrorImage = () => {
+        document.getElementById('img').src = "./noimg.jpeg";
+    }
     //title, copyright, imageProps, date, explanation, url
     const [saved, setSave] = useState(false);
     useEffect(()=> {
@@ -39,6 +44,7 @@ const TheCard = forwardRef(( props, ref ) => {
     const unsave = () => {
         console.log("unsaving");
         setSave(false);
+        props.deleteItem(props.title);
     }
     return (
         <Accordion>
@@ -46,10 +52,10 @@ const TheCard = forwardRef(( props, ref ) => {
                 <Card.Img id="img" variant="top" {...props.imageProps} onError={setErrorImage}/>
                 <h2></h2>
                 {saved ? 
-                
-                <AiFillHeart id="heartIcon" onClick={unsave}/> : <AiOutlineHeart id="heartIcon" onClick={save}/> 
+                <AiFillHeart id="heartIcon" onClick={unsave}/> 
+                : <AiOutlineHeart id="heartIcon" onClick={save}/> 
                 }
-
+                <Card.Body>
                 <Card.Title>{props.title}</Card.Title>
                 <Card.Subtitle id="truncate" className="mb-2 text-muted">{props.copyright}</Card.Subtitle>
                 <Card.Subtitle className="mb-2 text-muted">{props.date}</Card.Subtitle>
@@ -59,8 +65,9 @@ const TheCard = forwardRef(( props, ref ) => {
                         {props.explanation}
                     </Card.Text>
                 </Accordion.Collapse>
-                <CustomToggle eventKey="0"> View more/less</CustomToggle>
-
+                
+                </Card.Body>
+                <CustomToggle eventKey="0">{toogleText}</CustomToggle>
             </Card>
         </Accordion>
     )
