@@ -1,22 +1,36 @@
 body {
-    background-color: white;
-  /* background-repeat: no-repeat;
-  background-size: cover;
-  opacity: 100%; */
+  background-color: white;
+/* background-repeat: no-repeat;
+background-size: cover;
+opacity: 100%; */
 }
 #img {
-  width: 25rem;
-  height: 20rem;
+width: 25rem;
+height: 20rem;
+display: block;
 }
 #card {
-  width: 25rem;
+width: 25rem;
+position: relative;
+}
+#heartIcon {
+position: absolute;
+top: 0;
+right: 0;
+color: white;
+font-size: 50px;
+padding-right: 5px;
+padding-top: 5px;
+}
+#heartIcon:hover {
+cursor: pointer;
 }
 #btn:focus {
-  box-shadow: none !important;
+box-shadow: none !important;
 }
 #truncate{
   display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   word-break: var(--word-break, 'none');
   overflow: hidden;
