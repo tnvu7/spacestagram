@@ -7,8 +7,10 @@ import getData from './api/api.js';
 import TheCard from './Card.js';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
+import Row from 'react-bootstrap/Row';
+import Spinner from 'react-bootstrap/Spinner'
 import Card from 'react-bootstrap/Card';
+import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import './css/App.css';
 
 function App() {
@@ -20,26 +22,27 @@ function App() {
     useEffect(() => {
         getData(6).then(data => {
             setData(data);
-            console.log(loaded)
-            console.log(data);
             setLoad(true);
         });
+        document.getElementById('my-form').addEventListener('onsubmit', SubmitHandler, false);
+        console.log("reload");
     }, []);
-    // useEffect(() => {
-    //     console.log(data);
-    //     setLoad(true);
-    // }, [data]);
 
     const SubmitHandler = (event) => {
-
-        if (input == "") {
+        event.preventDefault();
+        if (input == "" || isNaN(input)) {
             setErrMsg("Please enter a number");
         } else {
-            const res = getData(input);
-            setData(res);
+            getData(input).then(data => {
+                setData(data);
+                setLoad(true);
+            });
         }
     }
-
+    const onChange = (e) => {
+        setUserInput(e.target.value);
+        setErrMsg("");
+    }
     const handleInput = (e) => {
         if (e.key === 'Enter') {
             SubmitHandler(e);
@@ -49,33 +52,34 @@ function App() {
         <div >
             <Container>
                 <h1>Spacestagram</h1>
-                {/* <Form>
-                    <Form.Group className="mb-3" controlId="formBasicText">
-                        <Form.Label>Number of pictures</Form.Label>
-                        <Form.Control type="text" placeholder="Enter the number of pictures..." onChange={onChange} onKeyDown={handleInput}/>
-                        <Button variant="outline-primary" onClick={SubmitHandler()}>Search</Button>
+                <Form inline>
+                    <Form.Group >
+                        <FloatingLabel controlId="floatingPassword" label="Number of pictures...">
+                            <Form.Control id='my-form' type="text" className="mr-sm-2" placeholder="Number of pictures..." 
+                            onChange={onChange} onKeyDown={handleInput} />
+                        </FloatingLabel>
+                        <Button variant="outline-primary" onSubmit={SubmitHandler}>Search</Button>
                     </Form.Group>
-                </Form> 
-                <Alert variant="danger"> {errMsg}  </Alert> */}
+                </Form>
+                {errMsg !== "" ? <Alert variant="danger"> {errMsg}  </Alert> : null}
 
-                {loaded ? 
-                <Row xs={1} md={2} className="g-4">
-                {data.map((obj) => (
-                  <Col>
-                    <TheCard 
-                    key={obj.title}
-                    title={obj.title} 
-                    copyright={obj.copyright} 
-                    date={obj.date}
-                    explanation={obj.explanation}
-                    imageProps={{ src: `${obj.url}`}}
-                    />
-                  </Col>
-                ))}
-              </Row>
-                
-                 : null}
-                
+                {loaded ?
+                    <Row xs={1} md={2} className="g-4">
+                        {data.map((obj) => (
+                            <Col>
+                                <TheCard
+                                    key={obj.title}
+                                    title={obj.title}
+                                    copyright={obj.copyright}
+                                    date={obj.date}
+                                    explanation={obj.explanation}
+                                    imageProps={{ src: `${obj.url}` }}
+                                />
+                            </Col>
+                        ))}
+                    </Row>
+                    : <Spinner animation="border" />}
+
 
 
             </Container>
