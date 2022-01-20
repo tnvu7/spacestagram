@@ -47,7 +47,7 @@ const TheCard = forwardRef((props, ref) => {
         )}
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
-          <Card.Subtitle className="truncate" className="mb-2 text-muted">
+          <Card.Subtitle className="truncate mb-2 text-muted">
             {props.copyright}
           </Card.Subtitle>
           <Card.Subtitle className="mb-2 text-muted">
