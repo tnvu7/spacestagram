@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { useAccordionButton } from "react-bootstrap/AccordionButton";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useState } from "react";
 
 const TheCard = forwardRef((props, ref) => {
   const [flag, setFlag] = useState(false);
