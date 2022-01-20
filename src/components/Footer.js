@@ -18,7 +18,7 @@ function Footer() {
               target="__blank"
               rel="noreferrer"
             >
-              <FaLinkedin className={style.icon} />
+              <FaLinkedin size="2rem" />
             </a>
           </OverlayTriggerComponent>
           <OverlayTriggerComponent text="Source code">
@@ -27,7 +27,7 @@ function Footer() {
               target="__blank"
               rel="noreferrer"
             >
-              <AiFillGithub className={style.icon} />
+              <AiFillGithub size="2rem" />
             </a>
           </OverlayTriggerComponent>
         </div>
