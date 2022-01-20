@@ -27,7 +27,7 @@ function Footer() {
               target="__blank"
               rel="noreferrer"
             >
-              <AiFillGithub size="2rem" />
+              <AiFillGithub size="2rem" color="white" />
             </a>
           </OverlayTriggerComponent>
         </div>
