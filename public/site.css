@@ -1,37 +1,37 @@
-body {
-  background-color: white;
-/* background-repeat: no-repeat;
-background-size: cover;
-opacity: 100%; */
+html, body {
+  font-family: 'Poppins', sans-serif !important;
 }
-#img {
-width: 25rem;
-height: 20rem;
-display: block;
+#root {
+  background-color: #141414;
 }
-#card {
-width: 25rem;
-position: relative;
+.img {
+  width: 25rem;
+  height: 20rem;
+  display: block;
 }
-#heartIcon {
-position: absolute;
-top: 0;
-right: 0;
-color: white;
-font-size: 50px;
-padding-right: 5px;
-padding-top: 5px;
+.card {
+  width: 25rem;
+  position: relative;
 }
-#heartIcon:hover {
-cursor: pointer;
+.heartIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  font-size: 50px;
+  padding-right: 5px;
+  padding-top: 5px;
 }
-#btn:focus {
-box-shadow: none !important;
+.heartIcon:hover {
+  cursor: pointer;
 }
-#truncate{
+.btn:focus {
+  box-shadow: none !important;
+}
+.truncate {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-  word-break: var(--word-break, 'none');
+  word-break: var(--word-break, "none");
   overflow: hidden;
 }
